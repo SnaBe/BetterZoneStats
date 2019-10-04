@@ -1,0 +1,15 @@
+## Interface: 11302
+## Title: |cFFFFFFFFBetter Zone Stats|r|cFF00FF00 v0.1|r|cFFFF0000 Alpha|r
+## Version: 1.0
+## SavedVariables: BetterZoneStatsDb
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
+## Notes: Displays more detailed zone stats than the default WoW's interface.
+## Author: Simon S. Sørensen
+## DefaultState: enabled
+
+# Load Ace3 embeds.xml
+embeds.xml
+
+# Load our main xml file
+BetterZoneStats.xml

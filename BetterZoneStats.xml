@@ -1,0 +1,93 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\..\FrameXML\UI.xsd">
+    <!-- Load the main lua files. -->
+    <Script File="Setup.lua"/>
+    <Script File="Options.lua"/>
+    <Script File="Zones.lua"/>
+    <Script File="BetterZoneStats.lua"/>
+    <!-- The main frame of the ZonedIn addon. -->
+    <Frame name="ZoneFrame" parent="UIParent" hidden="false" enableMouse="true" movable="true">
+        <!-- The size of the frame. -->
+        <Size x="256" y="80"/>
+        <!-- Where to anchor the frame. -->
+        <Anchors>
+            <Anchor point="TOPLEFT">
+                <Offset x="20" y="-90"/>
+            </Anchor>
+        </Anchors>
+        <!-- The frames backdrop, background & color. -->
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <BackgroundInsets>
+                <AbsInset left="4" right="3" top="4" bottom="3"/>
+            </BackgroundInsets>
+            <!-- Frame color values in rgb (red, green, blue) -->
+            <Color r="0.2" g="0.2" b="0.2" a="0.7"/>
+        </Backdrop>
+        <!-- Frame layers. -->
+        <Layers>
+            <!-- The primary layer. -->
+            <Layer>
+                <!-- The player's current zone. -->
+                <FontString name="$parent_PlayerZone" inherits="SystemFont_Med1" text="Unknown zone">
+                    <Size x="0" y="10"/>
+                    <Anchors>
+                        <Anchor point="CENTER">
+                            <Offset x="0" y="24"/>
+                        </Anchor>
+                    </Anchors>
+                    <Color r="0" g="1" b="0" a="1"/>
+                </FontString>
+                <!-- The player's current zone status. -->
+                <FontString name="$parent_ZoneStatus" inherits="SystemFont_Med1" text="Status Unknown">
+                    <Size x="0" y="10"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent_PlayerZone">
+                            <Offset x="0" y="-16"/>
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="0" a="1"/>
+                </FontString>
+                <!-- The player's current zone level. -->
+                <FontString name="$parent_ZoneLevel" inherits="SystemFont_Med1" text="Zone Level: 1 - 60">
+                    <Size x="0" y="10"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent_ZoneStatus">
+                            <Offset x="0" y="-16"/>
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="0" a="1"/>
+                </FontString>
+                <!-- The player's current x and y coordinates. -->
+                <FontString name="$parent_PlayerCoordinates" inherits="SystemFont_Med1" text="(X: 0.0 , Y: 0.0)">
+                    <Size x="0" y="10"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent_ZoneLevel">
+                            <Offset x="0" y="-16"/>
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="0" a="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- Addon scripts. -->
+        <Scripts>
+            <!-- When the addon is loaded. -->
+            <OnLoad/>
+            <!-- OnUpdate event-->
+            <OnUpdate function="OnUpdate"/>
+            <!-- Moves the frame-based object in relation to where the mouse is being moved. -->
+            <OnMouseDown>
+                ZoneFrame:StartMoving()
+            </OnMouseDown>
+            <!-- Stops a frame movement or resize that was started with Frame:StartMoving() or Frame:StartSizing() -->
+            <OnMouseUp>
+                ZoneFrame:StopMovingOrSizing()
+            </OnMouseUp>
+        </Scripts>
+    </Frame>
+</Ui>
