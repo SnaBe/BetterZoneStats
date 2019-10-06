@@ -430,33 +430,19 @@ local classicZones = {
         },
         status = 'Alliance',
         notes = 'Rail System',
-    },
-    ['Uldaman'] = {
-        level = {
-            text = '41 - 51',
-            min = 41,
-            max = 51,
-        },
-        status = 'Contested',
-        notes = 'Dungeon',
-    },    
-    ['Unknown'] = {
-        level = {
-            text = '??',
-            min = 1,
-            max = 60,
-        },
-        status = 'Contested',
-        notes = '',
-    },                              
+    },                            
 }
 
+-- Function for finding a zone
 function BetterZoneStats:FindZone(subzone, zone)
+    -- Check for the zone 
     local fZone = classicZones[zone]
-    
+    -- If we found a zone
     if fZone ~= nil then
+        -- Return the zone details
         return fZone
     else 
-        return classicZones['Unknown']
+        -- Check if the player is in a dungeon zone
+        return self:FindDungeon(subzone, zone)
     end
 end

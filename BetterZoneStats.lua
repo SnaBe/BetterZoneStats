@@ -30,7 +30,7 @@ end
 
 -- Called when the addon is disabled
 function BetterZoneStats:OnDisable()
-
+    -- TODO handle on OnDisable
 end
 
 -- Function to be called on OnUpdate
@@ -99,11 +99,11 @@ function BetterZoneStats:GetZone()
         -- A does not have any special notes
         ZoneFrame_ZoneStatus:SetText(zoneDetails.status .. ' Territory') 
     end
-
+    -- The players faction
     local playerFaction = UnitFactionGroup('player')
     -- Check the players faction and their status with that zone
     if playerFaction == zoneDetails.status then
-        -- Set the PlayerZone and ZoneStatus text color to red
+        -- Set the PlayerZone and ZoneStatus text color to green
         ZoneFrame_PlayerZone:SetTextColor(0, 1, 0, 1)
         ZoneFrame_ZoneStatus:SetTextColor(0, 1, 0, 1)
     elseif zoneDetails.status == 'Contested' then
@@ -111,7 +111,7 @@ function BetterZoneStats:GetZone()
         ZoneFrame_PlayerZone:SetTextColor(1, 1, 0, 1)
         ZoneFrame_ZoneStatus:SetTextColor(1, 1, 0, 1)
     else
-        -- Set the PlayerZone and ZoneStatus text color to green
+        -- Set the PlayerZone and ZoneStatus text color to red
         ZoneFrame_PlayerZone:SetTextColor(1, 0, 0, 1)
         ZoneFrame_ZoneStatus:SetTextColor(1, 0, 0, 1)
     end
@@ -120,16 +120,25 @@ function BetterZoneStats:GetZone()
     -- Get the players current level
     local playerLevel = UnitLevel('player')
     -- Set the zone level color depending on the players level
-    print(GetUnitName('player') .. '\'s level is ' .. playerLevel)
-    
-    if playerLevel + 10 <= zoneDetails.level.min or playerLevel - zoneDetails.level.max >= 4 then
-        print('red zone')
+    self:DebugPrint(GetUnitName('player') .. '\'s level is ' .. playerLevel)
+    -- Zone difficulty indicated with a color
+    if playerLevel - zoneDetails.level.min <= -4 or playerLevel - zoneDetails.level.max <= -10 then
+        -- Red zone
         ZoneFrame_ZoneLevel:SetTextColor(1, 0, 0, 1)
-    elseif playerLevel > zoneDetails.level.min and playerLevel < zoneDetails.level.max then
-        print('yellow or orange zone')
-        ZoneFrame_ZoneLevel:SetTextColor(1, 0.64, 0, 1)
-    elseif playerLevel >= zoneDetails.level.max + 10 then
-        print('green zone')
+    elseif playerLevel - zoneDetails.level.min >= -3 and playerLevel - zoneDetails.level.min <= -4 or playerLevel - zoneDetails.level.max >= -3 and playerLevel - zoneDetails.level.max <= -4 then
+        -- Orange zone
+        ZoneFrame_ZoneLevel:SetTextColor(1, 0.65, 0, 1)
+    elseif playerLevel - zoneDetails.level.min <= -2 or playerLevel - zoneDetails.level.max <= -2 or playerLevel - zoneDetails.level.min <= 2 or playerLevel - zoneDetails.level.max <= 2 then
+        -- Yellow zone
+        ZoneFrame_ZoneLevel:SetTextColor(1, 1, 0, 1)
+    elseif playerLevel > 1 and playerLevel < 10 and playerLevel - zoneDetails.level.min == 4 or playerLevel > 10 and playerLevel < 19 and playerLevel - zoneDetails.level.min == 5 or playerLevel > 20 and playerLevel < 29 and playerLevel - zoneDetails.level.min == 6 or playerLevel > 30 and playerLevel < 39 and playerLevel - zoneDetails.level.min == 7 or playerLevel > 40 and playerLevel <= 60 and playerLevel - zoneDetails.level.min == 8 or playerLevel > 1 and playerLevel < 10 and playerLevel - zoneDetails.level.max == 4 or playerLevel > 10 and playerLevel < 19 and playerLevel - zoneDetails.level.max == 5 or playerLevel > 20 and playerLevel < 29 and playerLevel - zoneDetails.level.max == 6 or playerLevel > 30 and playerLevel < 39 and playerLevel - zoneDetails.level.max == 7 or playerLevel > 40 and playerLevel <= 60 and playerLevel - zoneDetails.level.max == 8 then
+        -- Green zone for level 1 - 9, 10 - 19, 20 - 29, 30 - 39 and 40 - 60 leveled players
         ZoneFrame_ZoneLevel:SetTextColor(0, 1, 0, 1)
+    elseif playerLevel - zoneDetails.level.min > 8 or playerLevel - zoneDetails.level.max > 8 then 
+        -- Gray zone
+        ZoneFrame_ZoneLevel:SetTextColor(1, 1, 1, 1)
+    else 
+        -- Unknown zone difficulty
+        self:DebugPrint('Unknown zone difficulty, zone level: ' .. zoneDetails.level.text .. ', player level: ' .. playerLevel .. ', perhaps, bad math?')
     end
 end

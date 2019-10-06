@@ -4,7 +4,7 @@
 ## SavedVariables: BetterZoneStatsDb
 ## OptionalDeps: Ace3
 ## X-Embeds: Ace3
-## Notes: Displays more detailed zone stats than the default WoW's interface.
+## Notes: Displays more detailed zone stats than the default WoW interface.
 ## Author: Simon S. Sørensen
 ## DefaultState: enabled
 

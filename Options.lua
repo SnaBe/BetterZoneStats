@@ -27,11 +27,13 @@ local options = {
     }
 }
 
+-- Function for loading in the addon options
 function BetterZoneStats:LoadOptions()
+    -- New addon database for user options
     self.db = LibStub('AceDB-3.0'):New('BetterZoneStatsDb', defaults, true)
-
+    -- Register options table
     LibStub('AceConfig-3.0'):RegisterOptionsTable('BetterZoneStats', options)
-
+    -- Create an options frame
     self.optionsFrame = LibStub('AceConfigDialog-3.0'):AddToBlizOptions('BetterZoneStats', 'BetterZoneStats')
     -- Register our slash commands
     self:RegisterChatCommand('bzs', 'ChatCommand')
