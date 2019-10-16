@@ -3,11 +3,13 @@
     <Script File="Setup.lua"/>
     <Script File="Options.lua"/>
     <Script File="Zones.lua"/>
+    <Script File="Dungeons.lua"/>
+    <Script File="Raids.lua"/>
     <Script File="BetterZoneStats.lua"/>
     <!-- The main frame of the ZonedIn addon. -->
     <Frame name="ZoneFrame" parent="UIParent" hidden="false" enableMouse="true" movable="true">
         <!-- The size of the frame. -->
-        <Size x="256" y="80"/>
+        <Size x="288" y="80"/>
         <!-- Where to anchor the frame. -->
         <Anchors>
             <Anchor point="TOPLEFT">

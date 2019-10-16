@@ -26,6 +26,8 @@ function BetterZoneStats:OnEnable()
     self:RegisterEvent('ZONE_CHANGED', BetterZoneStats.HandleZoneChange)
     self:RegisterEvent('ZONE_CHANGED_INDOORS', BetterZoneStats.HandleZoneChange)
     self:RegisterEvent('ZONE_CHANGED_NEW_AREA', BetterZoneStats.HandleZoneChange)
+    -- Addon loaded & enabled.
+    self:Print('Loaded & enabled.')
 end
 
 -- Called when the addon is disabled
@@ -37,7 +39,7 @@ end
 function OnUpdate(self, timeElapsed)
     -- Update the secondsSinceLastUpdate with the timeElapsed
     BetterZoneStats.secondsSinceLastUpdate = BetterZoneStats.secondsSinceLastUpdate + timeElapsed
-    -- Only call getCoordinates() if 
+    -- Only call getCoordinates() if a certain amount of seconds have passed
     if(BetterZoneStats.secondsSinceLastUpdate > BetterZoneStats.updateInterval) then
         -- Get the player's current coordinates
         BetterZoneStats:GetCoordinates()
@@ -51,7 +53,7 @@ function BetterZoneStats:GetCoordinates()
     -- Checks whether the player is in an instance and the type of instance.
     local isPlayerInInstance, instanceType = IsInInstance()
     -- Debug print 
-    self:DebugPrint('Is ' .. GetUnitName('player') .. ' in an instance? (instance type: ' .. instanceType .. ') - ' .. tostring(isPlayerInInstance))
+    -- self:DebugPrint('Is ' .. GetUnitName('player') .. ' in an instance? (instance type: ' .. instanceType .. ') - ' .. tostring(isPlayerInInstance))
     -- Make sure the player is not in an instance
     if not isPlayerInInstance then
         -- Get the current UI map for the given unit
@@ -90,7 +92,7 @@ function BetterZoneStats:GetZone()
         ZoneFrame_PlayerZone:SetText(subzone .. ', ' .. zone)
     end
     -- Retrieve the players current zone details
-    local zoneDetails = BetterZoneStats:FindZone(subzone, zone)
+    local zoneDetails = BetterZoneStats:FindZone(subzone, zone) -- Missed a zone? Check up again with a list
     -- Check if a zone has any special notes
     if zoneDetails.notes ~= '' then
         -- The zone could be a Capital City, Faction Favored or other
@@ -120,9 +122,12 @@ function BetterZoneStats:GetZone()
     -- Get the players current level
     local playerLevel = UnitLevel('player')
     -- Set the zone level color depending on the players level
-    self:DebugPrint(GetUnitName('player') .. '\'s level is ' .. playerLevel)
+    -- self:DebugPrint(GetUnitName('player') .. '\'s level is ' .. playerLevel)
     -- Zone difficulty indicated with a color
-    if playerLevel - zoneDetails.level.min <= -4 or playerLevel - zoneDetails.level.max <= -10 then
+    if zoneDetails.level.min == 1 and zoneDetails.level.max == 60 then
+        -- Green zone for Capital Cities
+        ZoneFrame_ZoneLevel:SetTextColor(0, 1, 0, 1)
+    elseif playerLevel - zoneDetails.level.min <= -4 or playerLevel - zoneDetails.level.max <= -10 then
         -- Red zone
         ZoneFrame_ZoneLevel:SetTextColor(1, 0, 0, 1)
     elseif playerLevel - zoneDetails.level.min >= -3 and playerLevel - zoneDetails.level.min <= -4 or playerLevel - zoneDetails.level.max >= -3 and playerLevel - zoneDetails.level.max <= -4 then

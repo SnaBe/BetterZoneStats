@@ -62,6 +62,15 @@ local classicRaids = {
         status = 'Contested',
         notes = 'Raid',
     },
+    ['Unknown'] = {
+        level = {
+            text = '1 - 120',
+            min = 1,
+            max = 20,
+        }, 
+        status = 'Contested',
+        notes = ''
+    },
 }
 
 -- Function for finding a raid zone
@@ -75,5 +84,7 @@ function BetterZoneStats:FindRaid(subzone, zone)
     else 
         -- Debug print as we can't find any details for the given zone
         self:DebugPrint('Unknown zone: ' .. subzone .. ', ' .. zone)
+        -- Zone is unknown
+        return classicRaids['Unknown']
     end
 end

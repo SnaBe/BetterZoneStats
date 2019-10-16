@@ -341,6 +341,15 @@ local classicZones = {
         status = 'Contested',
         notes = '',
     },
+    ['Blackrock Mountain'] = {
+        level = {
+            text = '55 - 60',
+            min = 55,
+            max = 60,
+        },
+        status = 'Contested',
+        notes = '',
+    },
     ['Winterspring'] = {
         level = {
             text = '53 - 60',
