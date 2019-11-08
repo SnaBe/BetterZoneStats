@@ -43,6 +43,7 @@ end
 function BetterZoneStats:ChatCommand(input)
     if not input or input:trim() == '' then
         InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)
+        InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)
     else
         LibStub('AceConfigCmd-3.0'):HandleCommand('bzs', 'betterzonestats', input)
     end
