@@ -1,7 +1,7 @@
 # BetterZoneStats
 BetterZoneStats is an addon for WoW (Classic & retail) which displays more detailed zone stats than the default WoW interface. The addon shows your current location in Azeroth. In WoW your location consits of your current subzone, zone, the zones level and your x, y coordinates. A zones color will depend on your factions standing with that zone and its population.  
 
-[Download the latest version (1.0)](https://github.com/SnaBe/BetterZoneStats/archive/v1.0.zip)
+[Download the latest version (1.0)](https://github.com/SnaBe/BetterZoneStats/releases/download/v1.0/BetterZoneStats-v1.0.zip)
 
 ## Notes
 Currently only displays detailed stats for Classic zones.
