@@ -13,5 +13,5 @@ Currently only displays detailed stats for Classic zones.
 * ~~Display the players current zone details in a custom frame.~~
 * ~~Players should be albe to lock the frame using a chat command.~~
 * ~~Detailed zone stats for regular zones, dungeons and raids.~~
-* ~~Update the player's zone by a set interval & zone related events.~~
+* ~~Update the players zone by a set interval & zone related events.~~
 * ~~Implement a debug mode for handling new zones & errors.~~
